@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package protocol;
+import "BeanProtocol.proto";
+enum MSG{
+    Unknown_MSG = 0;
+    Login_Request = 0x00001001;
+    Login_Response = 0x00001002;
+    Device_Register_Request = 0x00002001;
+    Device_Register_Response = 0x00002002;
+}
+
+
+//用户端登陆请求
+message LoginRequest{
+    //用户登录账号
+    string username = 1;
+    //用户登录密码
+    string password = 2;
+    NetAddress ip = 3;
+}
+
+//用户端登陆回应
+message LoginResponse{
+    bool ack = 1;
+    //客户端节点
+    Client client = 2;
+}
+
+//设备上线请求
+message DeviceRegisterRequest{
+    Device device=1;
+}
+
+//设备上线回应
+message DeviceRegisterResponse{
+    //请求是否成功
+    bool ack = 1;
+    //返回外网IP地址
+    NetAddress address = 2;
+}
+
+//封装Request
+message Request{
+    LoginRequest loginRequest = 1;
+    DeviceRegisterRequest deviceRegisterRequest = 2;
+}
+//封装Response
+message Response{
+    LoginResponse loginResponse = 1;
+    DeviceRegisterResponse deviceRegisterResponse = 2;
+}
+//封装Command 暂时不用 点对点传输需要Command
+message Command{
+}
+
+//封装Notification
+message Notification{
+    fixed32 id = 1;
+    string msg = 2;
+}
+//封装顶层Message
+message Message{
+    MSG msg_type = 1;
+    fixed32 sequence = 2;
+    fixed32 session_id = 3;
+    Request request = 4;
+    Response Response = 5;
+    Notification notification = 6;
+}

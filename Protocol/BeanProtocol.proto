@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+//设备就相当于一个盒子
+message Device{
+    //每个盒子都有一个唯一的ID
+    fixed64 DeviceID = 1;
+    //设备连接下的ID地址，可能包含内网地址，外网地址
+    repeated NetAddress ip =2;
+}
+
+//客户端相当于一个远程节点
+message Client{
+    //用户唯一ID
+    fixed64 uuid = 1;
+    //一个用户可能会有多个设备 repeated
+    repeated Device device=2;
+}
+
+//repeated 数组类型
+message NetAddress {
+    //若这个IP为内网IP则为true，若位外网IP则为false
+    bool lan = 1;
+    fixed32 ip = 2;
+    uint32 port = 3;
+}

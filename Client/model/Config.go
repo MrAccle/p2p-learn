@@ -1,0 +1,20 @@
+package model
+
+const (
+	NODE_CLIENT = 0x01 + iota
+	NODE_BOX
+)
+const (
+	THIS_NODE_TYPE = NODE_BOX
+	SERVER_HOST = "0.0.0.0"
+	SERVER_PORT = "9111"
+	LOCAL_HOST = "0.0.0.0"
+	LOCAL_TCP_PORT = "12911"
+	LOCAL_UDP_PORT = "12912"
+)
+
+const (
+	CMD_REGISTER byte = 0x01 + iota
+	CMD_GETBOX
+	CMD_GETCLIECT
+)
